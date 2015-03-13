@@ -14,22 +14,26 @@ catkin_package(
   CATKIN_DEPENDS roscpp nodelet
 )
 
+set(POINTGREY_LIB "/home/odroid/install/flycapture.2.6.3.4_armhf/lib/libflycapture.so.2")
+set(POINTGREY_INCLUDE_DIR "/home/odroid/install/flycapture.2.6.3.4_armhf/include")
+
 # If the user has manually installed flycapture, use the system path version. If not,
 # download it. We can't resolve this dependency using the usual rosdep means because
 # the Point Grey EULA prohibits redistributing the headers or the packages which
 # contains them. Fortunately, we can download the archive directly from their 
 # website during this build process.
-find_library(POINTGREY_LIB flycapture)
-if(NOT POINTGREY_LIB)
-  message(STATUS "libflycapture not found in system library path")
-  include(cmake/DownloadFlyCap.cmake)
-  download_flycap(POINTGREY_LIB POINTGREY_INCLUDE_DIR) 
-  message(STATUS "libflycapture library: ${POINTGREY_LIB}")
-  message(STATUS "libflycapture include: ${POINTGREY_INCLUDE_DIR}")
-  include_directories(${POINTGREY_INCLUDE_DIR})  
-endif()
 
-include_directories(include ${catkin_INCLUDE_DIRS})
+#find_library(POINTGREY_LIB flycapture)
+#if(NOT POINTGREY_LIB)
+#  message(STATUS "libflycapture not found in system library path")
+#  include(cmake/DownloadFlyCap.cmake)
+#  download_flycap(POINTGREY_LIB POINTGREY_INCLUDE_DIR) 
+#  message(STATUS "libflycapture library: ${POINTGREY_LIB}")
+#  message(STATUS "libflycapture include: ${POINTGREY_INCLUDE_DIR}")
+#  include_directories(${POINTGREY_INCLUDE_DIR})  
+#endif()
+
+include_directories(include ${catkin_INCLUDE_DIRS} ${POINTGREY_INCLUDE_DIR})
 
 add_library(PointGreyCamera src/PointGreyCamera.cpp)
 target_link_libraries(PointGreyCamera ${POINTGREY_LIB} ${catkin_LIBRARIES})
