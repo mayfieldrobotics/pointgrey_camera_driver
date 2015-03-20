@@ -14,8 +14,8 @@ catkin_package(
   CATKIN_DEPENDS roscpp nodelet
 )
 
-set(POINTGREY_LIB "/home/odroid/install/flycapture.2.6.3.4_armhf/lib/libflycapture.so.2")
-set(POINTGREY_INCLUDE_DIR "/home/odroid/install/flycapture.2.6.3.4_armhf/include")
+set(POINTGREY_LIB $ENV{POINTGREY_LIB})
+set(POINTGREY_INCLUDE_DIR $ENV{POINTGREY_INCLUDE_DIR})
 
 # If the user has manually installed flycapture, use the system path version. If not,
 # download it. We can't resolve this dependency using the usual rosdep means because
