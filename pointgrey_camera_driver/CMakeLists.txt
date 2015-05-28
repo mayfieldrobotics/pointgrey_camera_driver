@@ -38,12 +38,15 @@ include_directories(include ${catkin_INCLUDE_DIRS} ${POINTGREY_INCLUDE_DIR})
 add_library(PointGreyCamera src/PointGreyCamera.cpp)
 target_link_libraries(PointGreyCamera ${POINTGREY_LIB} ${catkin_LIBRARIES})
 add_dependencies(PointGreyCamera ${PROJECT_NAME}_gencfg) 
+add_dependencies(PointGreyCamera wfov_camera_msgs_gencpp)
 
 add_library(PointGreyCameraNodelet src/nodelet.cpp)
 target_link_libraries(PointGreyCameraNodelet PointGreyCamera ${catkin_LIBRARIES})
+add_dependencies(PointGreyCameraNodelet wfov_camera_msgs_gencpp)
 
 add_library(PointGreyStereoCameraNodelet src/stereo_nodelet.cpp)
 target_link_libraries(PointGreyStereoCameraNodelet PointGreyCamera ${catkin_LIBRARIES})
+add_dependencies(PointGreyStereoCameraNodelet wfov_camera_msgs_gencpp)
 
 add_executable(pointgrey_camera_node src/node.cpp)
 target_link_libraries(pointgrey_camera_node PointGreyCamera ${catkin_LIBRARIES})
